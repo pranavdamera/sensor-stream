@@ -67,8 +67,8 @@ Raw Sensor Stream
 ### Local Setup
 
 ```bash
-git clone https://github.com/pranavdamera/sensor-anomaly-engine
-cd sensor-anomaly-engine
+git clone https://github.com/pranavdamera/sensor-stream
+cd sensor-stream
 pip install -r requirements.txt
 
 # Download and preprocess SMAP dataset

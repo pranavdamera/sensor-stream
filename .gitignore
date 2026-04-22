@@ -1,0 +1,17 @@
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+saved_models/
+data/raw/
+results/
+*.keras
+*.h5
+*.onnx
+*.npy
+.env
+.vscode/
+.idea/
+.DS_Store
+.ipynb_checkpoints/

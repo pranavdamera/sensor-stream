@@ -1,0 +1,14 @@
+{
+  "vision": {
+    "model": "change_detector (untrained prototype)",
+    "image_size": 256,
+    "p50_ms": 158.18,
+    "p95_ms": 484.1,
+    "mean_ms": 236.63,
+    "num_runs": 100,
+    "device": "cpu"
+  },
+  "telemetry": {
+    "status": "missing_artifact \u2014 run train.py first"
+  }
+}

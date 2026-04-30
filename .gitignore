@@ -5,7 +5,6 @@ __pycache__/
 venv/
 saved_models/
 data/raw/
-results/
 *.keras
 *.h5
 *.onnx

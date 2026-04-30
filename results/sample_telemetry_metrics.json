@@ -1,0 +1,20 @@
+{
+  "_note": "Representative output format. Run: python scripts/evaluate.py --channel P-1 to generate real numbers.",
+  "channel": "P-1",
+  "window_size": 128,
+  "threshold": 0.031,
+  "n_test_windows": 6580,
+  "lstm_autoencoder": {
+    "precision": 0.847,
+    "recall": 0.783,
+    "f1": 0.814,
+    "false_positive_rate": 0.140
+  },
+  "isolation_forest": {
+    "precision": 0.651,
+    "recall": 0.791,
+    "f1": 0.714,
+    "false_positive_rate": 0.182
+  },
+  "fp_reduction_pct": 23.1
+}

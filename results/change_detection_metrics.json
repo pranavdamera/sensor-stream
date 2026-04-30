@@ -1,0 +1,16 @@
+{
+  "status": "untrained_prototype",
+  "warning": "These metrics are from a randomly initialized model evaluated on one synthetic val sample. They reflect random baseline performance, not a trained result. Train the model on a real dataset before citing any numbers.",
+  "num_images": 1,
+  "changed_pixel_ratio": 1.0,
+  "threshold": 0.5,
+  "precision": 0.0748,
+  "recall": 1.0,
+  "f1": 0.1391,
+  "iou": 0.0748,
+  "false_positive_rate": 1.0,
+  "tp": 4900,
+  "fp": 60636,
+  "tn": 0,
+  "fn": 0
+}

@@ -1,0 +1,56 @@
+name: CI
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+
+jobs:
+  core-imports:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install lightweight deps
+        run: pip install numpy pandas scikit-learn fastapi pydantic uvicorn
+      - name: Check core module imports
+        run: |
+          python -c "from data.preprocess import build_labeled_windows; print('[OK] data.preprocess')"
+          python -c "from model.threshold import compute_thresholds; print('[OK] model.threshold')"
+          python -c "from model.baseline import fit_isolation_forest; print('[OK] model.baseline')"
+          python -c "from app.schemas import PredictRequest, PredictResponse; print('[OK] app.schemas')"
+
+  vision-and-onnx:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install PyTorch CPU + ONNX
+        run: |
+          pip install torch torchvision --index-url https://download.pytorch.org/whl/cpu
+          pip install onnx onnxruntime pillow
+      - name: Vision forward pass with bottleneck attention
+        run: |
+          python -c "
+          import torch
+          from vision.model import ChangeDetector
+          m = ChangeDetector(num_attention_heads=4)
+          b = torch.zeros(1, 3, 256, 256)
+          out = m(b, b)
+          assert out.shape == (1, 1, 256, 256)
+          print(f'[OK] forward pass verified, params: {sum(p.numel() for p in m.parameters()):,}')
+          "
+      - name: ONNX export and validation
+        run: |
+          python scripts/export_onnx.py --output /tmp/change_detector.onnx
+          python -c "
+          import onnx
+          m = onnx.load('/tmp/change_detector.onnx')
+          onnx.checker.check_model(m)
+          print('[OK] ONNX model validates')
+          "
